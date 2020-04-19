@@ -2,6 +2,7 @@ const intersectText: string = "intersect";
 const separateText: string = "separate";
 const invalidVertical: string = "invalid - top should be above bottom";
 const invalidHorizontal: string = "invalid - right value should be greater than left value";
+const subsetIntersect: boolean = true;              // weather a box inside another considered intersection
 
 export interface BoundingBox {
     left: number;
@@ -24,22 +25,29 @@ const checkBox = (box: BoundingBox) : Error => {
     return null;
 }
 
-export const checkRelation = (box1: BoundingBox, box2: BoundingBox) : string => {
+export const checkRelation = (box1: BoundingBox, box2: BoundingBox, insideIntersect: boolean = subsetIntersect ) : string => {
     const valid1 = checkBox(box1);
     const valid2 = checkBox(box2);
     if (valid1 !== null)
         return valid1.message + " - box1";
     if (valid2 !== null)
         return valid2.message + " - box2";
-    if (box1.left <= box2.right && box2.left <= box1.right && box1.bottom <= box2.top && box2.bottom <= box1.top)
-        return intersectText;
+    if (box1.left <= box2.right && box2.left <= box1.right && box1.bottom <= box2.top && box2.bottom <= box1.top) {
+        if (insideIntersect)
+            return intersectText;
+        else
+            if (!(box1.left > box2.left && box1.right < box2.right && box1.top < box2.top && box1.bottom > box2.bottom) && !(box2.left > box1.left && box2.right < box1.right && box2.top < box1.top && box2.bottom > box1.bottom))
+                return intersectText;
+    }
     return separateText;
 }
 
-const removeIntersect = (arr: BoundingBox[], box: BoundingBox) => {
+// returns arr without box and every BoundingBox that intersects with it
+const removeIntersect = (arr: BoundingBox[], box: BoundingBox) : BoundingBox[] => {
     return arr.filter((box2) => checkRelation(box, box2) === separateText);
 }
 
+// returns a subset of arr, containing only separate BoundingBoxes
 export const checkArray = (arr: BoundingBox[]) : BoundingBox[] => {
     let sortedArr: BoundingBox[] = arr.sort((box1, box2) => box1.right - box2.right !== 0 ? box1.right - box2.right : box1.top - box2.top);
     let output: BoundingBox[] = [];
@@ -49,13 +57,3 @@ export const checkArray = (arr: BoundingBox[]) : BoundingBox[] => {
     }
     return output;
 }
-
-const rectA: BoundingBox = {left: 10, right: 30, top: 30, bottom: 10};
-const rectB: BoundingBox = {left: 20, right: 50, top: 50, bottom: 20};
-const rectC: BoundingBox = {left: 70, right: 90, top: 90, bottom: 70};
-const arr: BoundingBox[] = [rectA, rectB, rectC];
-
-console.log(checkRelation(rectA, rectB));
-console.log(checkRelation(rectA, rectC));
-console.log(removeIntersect(arr, rectA));
-console.log(checkArray(arr));
