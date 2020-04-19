@@ -8,7 +8,7 @@ export interface BoundingBox {
     right: number;
     top: number;
     bottom: number;
-};
+}
 
 const linesToBox = (left: number, right: number, top: number, bottom: number) : BoundingBox => {
     let box =  {left: left, right: right, top: top, bottom: bottom};
@@ -36,9 +36,26 @@ export const checkRelation = (box1: BoundingBox, box2: BoundingBox) : string => 
     return separateText;
 }
 
-let rectA: BoundingBox = {left: 10, right: 30, top: 30, bottom: 10};
-let rectB: BoundingBox = {left: 20, right: 50, top: 50, bottom: 20};
-let rectC: BoundingBox = {left: 70, right: 90, top: 90, bottom: 170};
+const removeIntersect = (arr: BoundingBox[], box: BoundingBox) => {
+    return arr.filter((box2) => checkRelation(box, box2) === separateText);
+}
+
+export const checkArray = (arr: BoundingBox[]) : BoundingBox[] => {
+    let sortedArr: BoundingBox[] = arr.sort((box1, box2) => box1.right - box2.right !== 0 ? box1.right - box2.right : box1.top - box2.top);
+    let output: BoundingBox[] = [];
+    while (sortedArr.length > 0) {
+        output.push(sortedArr[0]);
+        sortedArr = removeIntersect(sortedArr, sortedArr[0]);
+    }
+    return output;
+}
+
+const rectA: BoundingBox = {left: 10, right: 30, top: 30, bottom: 10};
+const rectB: BoundingBox = {left: 20, right: 50, top: 50, bottom: 20};
+const rectC: BoundingBox = {left: 70, right: 90, top: 90, bottom: 70};
+const arr: BoundingBox[] = [rectA, rectB, rectC];
 
 console.log(checkRelation(rectA, rectB));
 console.log(checkRelation(rectA, rectC));
+console.log(removeIntersect(arr, rectA));
+console.log(checkArray(arr));
