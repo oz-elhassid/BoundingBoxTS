@@ -1,6 +1,7 @@
 const intersectText: string = "intersect";
 const separateText: string = "separate";
-const invalidText: string = "invalid";
+const invalidVertical: string = "invalid - top should be above bottom";
+const invalidHorizontal: string = "invalid - right value should be greater than left value";
 
 export interface BoundingBox {
     left: number;
@@ -17,9 +18,9 @@ const linesToBox = (left: number, right: number, top: number, bottom: number) : 
 
 const checkBox = (box: BoundingBox) : Error => {
     if (box.left > box.right)
-        return new RangeError("right value should be greater than left value");
+        return new RangeError(invalidHorizontal);
     if (box.bottom > box.top)
-        return new RangeError("bottom should be below top");
+        return new RangeError(invalidVertical);
     return null;
 }
 
@@ -27,9 +28,9 @@ export const checkRelation = (box1: BoundingBox, box2: BoundingBox) : string => 
     const valid1 = checkBox(box1);
     const valid2 = checkBox(box2);
     if (valid1 !== null)
-        return invalidText + ' ' + valid1.message;
+        return valid1.message + " - box1";
     if (valid2 !== null)
-        return invalidText + ' ' + valid2.message;
+        return valid2.message + " - box2";
     if (box1.left <= box2.right && box2.left <= box1.right && box1.bottom <= box2.top && box2.bottom <= box1.top)
         return intersectText;
     return separateText;
