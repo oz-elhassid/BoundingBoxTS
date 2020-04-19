@@ -11,12 +11,6 @@ export interface BoundingBox {
     bottom: number;
 }
 
-const linesToBox = (left: number, right: number, top: number, bottom: number) : BoundingBox => {
-    let box =  {left: left, right: right, top: top, bottom: bottom};
-    checkBox(box);
-    return box;
-}
-
 const checkBox = (box: BoundingBox) : Error => {
     if (box.left > box.right)
         return new RangeError(invalidHorizontal);
