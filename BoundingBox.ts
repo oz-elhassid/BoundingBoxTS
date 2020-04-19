@@ -28,10 +28,9 @@ export const checkRelation = (box1: BoundingBox, box2: BoundingBox) : string => 
     if (valid2 !== null)
         return valid2.message + " - box2";
     if (box1.left <= box2.right && box2.left <= box1.right && box1.bottom <= box2.top && box2.bottom <= box1.top) {
-            if ((box1.left > box2.left && box1.right < box2.right && box1.top < box2.top && box1.bottom > box2.bottom) || (box2.left > box1.left && box2.right < box1.right && box2.top < box1.top && box2.bottom > box1.bottom))
-                return insideText;
-            else
-                return intersectText;
+        if ((box1.left > box2.left && box1.right < box2.right && box1.top < box2.top && box1.bottom > box2.bottom) || (box2.left > box1.left && box2.right < box1.right && box2.top < box1.top && box2.bottom > box1.bottom))
+            return insideText;
+        return intersectText;
     }
     return separateText;
 }
