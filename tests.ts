@@ -27,4 +27,4 @@ console.log("a separate array created from arr not assuming a box in a box is se
 console.log(checkArray(arr, boxRelation.inside));
 console.log("the array's length is " + (checkArray(arr, boxRelation.inside).length <= 3 ? " <= 3 - " + passed : " > 3 - " + failed));
 const boxF: BoundingBox = {left: 40, right: 30, top: 30, bottom: 10};
-console.log("boxA and boxB: " + checkRelation(boxA, boxF) + " - " + test(checkRelation(boxA, boxF), boxRelation.invalidHorizontal));
+console.log("boxA and boxF: " + checkRelation(boxA, boxF) + " - " + test(checkRelation(boxA, boxF), boxRelation.invalidHorizontal));
