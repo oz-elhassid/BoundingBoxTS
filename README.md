@@ -19,10 +19,10 @@ In order to run the tests, run:
 npm test
 ```
 ## Usage
-`BoundingBox` : An interface consists of four numerical values describing each of the bounds.  
-`boxRelation` : An enum. Represents the different relations between boxes and the desired string output.   
-`checkRelation(box1: BoundingBox, box2: BoundingBox, inside?: boxRelation)` : Given two BoundingBoxes and an optional boxRelation to determine how to treat a box inside another box (default is `separate`), returns a string describing the relation between the boxes.  
-`checkArray(arr: BoundingBox[], inside?: boxRelation)` : Given an array of BoundingBoxes, and an optional boxRelation to determine how to treat a box inside another box (default is `separate`), returns an array containing only separate boxes.
+`BoundingBox`: An interface consists of four numerical values describing each of the bounds.  
+`boxRelation`: An enum. Represents the different relations between boxes and the desired string output.   
+`checkRelation(box1: BoundingBox, box2: BoundingBox, inside?: boxRelation)`: Given two BoundingBoxes and an optional boxRelation to determine how to treat a box inside another box (default is `separate`), returns a string describing the relation between the boxes.  
+`checkArray(arr: BoundingBox[], inside?: boxRelation)`: Given an array of BoundingBoxes, and an optional boxRelation to determine how to treat a box inside another box (default is `separate`), returns an array containing only separate boxes.
 
 ## Test Cases
 The `tests.ts` file includes a few simple tests, and some basic usage examples.  
