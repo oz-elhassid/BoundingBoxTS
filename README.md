@@ -1,6 +1,7 @@
 # BoundingBoxTS
-
-Running the project is pretty straight forward.
+A simple TypeScript code to check the relation between axis-aligned bounding boxes.
+## Building
+Running the project is pretty straightforward.
 
 First, install [Node.js](https://nodejs.org/en/download/).
 
@@ -25,7 +26,6 @@ npm test
 `checkArray(arr: BoundingBox[], inside?: boxRelation)`: Given an array of BoundingBoxes, and an optional boxRelation to determine how to treat a box inside another box (default is `separate`), returns an array containing only separate boxes.  
 `point`: An interface containing an x value and a y value, representing a point.  
 `pointsToBox(p1: point, p2: point)`: Given two points, returns a BoundingBox.
-
 ## Test Cases
 The `tests.ts` file includes a few simple tests, and some basic usage examples.  
 It creates 6 BoundingBoxes, and creates an array containing said BoundingBoxes.  
