@@ -1,7 +1,7 @@
 import { BoundingBox, checkRelation, checkArray, boxRelation, pointsToBox } from "./BoundingBox";
 
 const passed: string = "Test passed";
-const failed: string = "Test failed"
+const failed: string = "Test failed";
 let totalTests: number = 0;
 let passedTests: number = 0;
 
