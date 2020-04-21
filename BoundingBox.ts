@@ -1,3 +1,15 @@
+export interface point {
+    x: number;
+    y: number;
+}
+
+export const pointsToBox = (p1: point, p2: point) : BoundingBox => {
+    return {left: p1.x < p2.x ? p1.x : p2.x,
+            right: p1.x > p2.x ? p1.x : p2.x,
+            top: p1.y > p2.y ? p1.y : p2.y,
+            bottom: p1.y < p2.y ? p1.y : p2.y};
+}
+
 export const enum boxRelation {
     intersect = "intersect",
     separate = "separate",

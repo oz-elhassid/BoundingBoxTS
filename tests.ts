@@ -1,4 +1,4 @@
-import { BoundingBox, checkRelation, checkArray, boxRelation } from "./BoundingBox";
+import { BoundingBox, checkRelation, checkArray, boxRelation, pointsToBox } from "./BoundingBox";
 
 const passed: string = "Test passed";
 const failed: string = "Test failed"
@@ -10,6 +10,7 @@ const test = (str1: string, str2: string) : string => {
 }
 
 const boxA: BoundingBox = {left: 10, right: 30, top: 30, bottom: 10};
+const boxAbyPoints: BoundingBox = pointsToBox({x:10, y:30}, {x:30, y:10});
 const boxB: BoundingBox = {left: 20, right: 50, top: 50, bottom: 20};
 const boxC: BoundingBox = {left: 70, right: 90, top: 90, bottom: 70};
 const boxD: BoundingBox = {left: 100.9, right: 200.9, top: 200.9, bottom: 100.9};
@@ -28,3 +29,4 @@ console.log("boxD and boxE not assuming a box in a box is separate: " + checkRel
 console.log("a separate array created from arr not assuming a box in a box is separate:");
 console.log(checkArray(arr, boxRelation.inside));
 console.log("the array's length is " + (checkArray(arr, boxRelation.inside).length <= 3 ? " <= 3 - " + passed : " > 3 - " + failed));
+console.log("comparing boxA created using four edges to boxA created using two points - " + test(JSON.stringify(boxA), JSON.stringify(boxAbyPoints)));
